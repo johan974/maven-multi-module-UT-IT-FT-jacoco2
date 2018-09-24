@@ -2,6 +2,8 @@ public class DomainClass1 {
     public static void main(String[] args) {
         DomainClass1 domainClass1 = new DomainClass1();
         System.out.println( "Special number is = " + domainClass1.convert( 234));
+        System.out.println( "Special number is = " + domainClass1.convert( 567));
+        DomainClass2 domainClass2 = new DomainClass2();
     }
     public int convert( int inputNumber) {
         return inputNumber * inputNumber - 2 + 4;
