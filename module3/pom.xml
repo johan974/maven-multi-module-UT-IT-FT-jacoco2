@@ -20,7 +20,7 @@
         <dependency>
             <groupId>nl.deholtmans</groupId>
             <artifactId>module1</artifactId>
-            <version>${version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>info.cukes</groupId>
