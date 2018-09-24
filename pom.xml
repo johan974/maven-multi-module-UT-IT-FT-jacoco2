@@ -12,7 +12,7 @@
     <modules>
         <module>module1</module>
         <module>module2</module>
-        <module>testing</module>
+        <!--<module>testing</module>-->
         <module>module3</module>
     </modules>
 
@@ -68,58 +68,55 @@
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>1.0-SNAPSHOT</version>
                 </plugin>
+                <!-- UNIT test 'mvn clean install' (optionally: -P dev) -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.19.1</version>
+                    <configuration>
+                        <!-- When using '@Category( MyUnitTest.class)': MyUnitTest</groups>-->
+                        <skipTests>${skip.unit.tests}</skipTests>
+                        <excludes>
+                            <exclude>**/*IntegrationTest.java</exclude>
+                        </excludes>
+                        <!-- optional: works also when skipped -->
+                        <forkCount>1</forkCount>
+                    </configuration>
+                </plugin>
+                <!-- INTEGRATION test via 'mvn clean install -P integration-test -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>2.18.1</version>
+                    <executions>
+                        <execution>
+                            <id>integration-tests</id>
+                            <goals>
+                                <goal>integration-test</goal>
+                                <goal>verify</goal>
+                            </goals>
+                            <configuration>
+                                <skipTests>${skip.integration.tests}</skipTests>
+                                <includes>
+                                    <include>**/*IntegrationTest.java</include>
+                                </includes>
+                                <!-- When using '@Categrory('MyIntegrationtest'): <groups>MyIntegrationTest</groups>-->
+                                <reuseForks>true</reuseForks>
+                                <argLine>${itCoverageAgent}</argLine>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
 
         <plugins>
-            <!-- UNIT test 'mvn clean install' (optionally: -P dev) -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
-                <configuration>
-                    <!-- When using '@Category( MyUnitTest.class)': MyUnitTest</groups>-->
-                    <skipTests>${skip.unit.tests}</skipTests>
-                    <excludes>
-                        <exclude>**/*IntegrationTest.java</exclude>
-                    </excludes>
-                    <!-- optional: works also when skipped -->
-                    <forkCount>1</forkCount>
-                </configuration>
-            </plugin>
-
-            <!-- INTEGRATION test via 'mvn clean install -P integration-test -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.18.1</version>
-                <executions>
-                    <execution>
-                        <id>integration-tests</id>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                        <configuration>
-                            <skipTests>${skip.integration.tests}</skipTests>
-                            <includes>
-                                <include>**/*IntegrationTest.java</include>
-                            </includes>
-                            <!-- When using '@Categrory('MyIntegrationtest'): <groups>MyIntegrationTest</groups>-->
-                            <reuseForks>true</reuseForks>
-                            <argLine>${itCoverageAgent}</argLine>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
             <!-- FINDSBUGS - code quality -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>3.0.4</version>
             </plugin>
-
             <!-- JACOCO - code coverage -->
             <plugin>
                 <groupId>org.jacoco</groupId>
