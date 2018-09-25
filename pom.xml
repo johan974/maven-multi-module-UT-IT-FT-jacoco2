@@ -62,11 +62,6 @@
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>nl.deholtmans</groupId>
-                    <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>1.0-SNAPSHOT</version>
-                </plugin>
                 <!-- UNIT test 'mvn clean install' (optionally: -P dev) -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -106,18 +101,13 @@
                         </execution>
                     </executions>
                 </plugin>
-            </plugins>
-        </pluginManagement>
-
-        <plugins>
-            <!-- FINDSBUGS - code quality -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>3.0.4</version>
-            </plugin>
-            <!-- JACOCO - code coverage -->
-            <plugin>
+                     <!-- JACOCO - code coverage -->
+                     <!--<plugin>
+                    <groupId>nl.deholtmans</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>1.0-SNAPSHOT</version>
+                    </plugin>-->
+                <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.7.9</version>
@@ -156,6 +146,16 @@
                     </execution>
                 </executions>
             </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <!-- FINDSBUGS - code quality -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.4</version>
+             </plugin>
         </plugins>
     </build>
 </project>
